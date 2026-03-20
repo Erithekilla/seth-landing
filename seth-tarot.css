@@ -1,0 +1,976 @@
+/* ═══════════════════════════════════════════════
+   Seth — Tarot de Thoth & Rituais Esotéricos
+   Stylesheet
+   ═══════════════════════════════════════════════ */
+
+/* ─── VARIÁVEIS ─── */
+:root {
+  --obsidian: #0a0704;
+  --void: #060402;
+  --sand-dark: #8b6914;
+  --sand: #c9993a;
+  --gold: #d4a843;
+  --gold-bright: #f0c060;
+  --amber: #e8851a;
+  --blood: #8b1a0a;
+  --copper: #a0522d;
+  --dust: #3d2b0f;
+  --fog: #1a1208;
+  --text-main: #d4c4a0;
+  --text-muted: #8a7560;
+  --text-bright: #f0e0b0;
+}
+
+/* ─── RESET & BASE ─── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: var(--void);
+  color: var(--text-main);
+  font-family: 'IM Fell English', serif;
+  overflow-x: hidden;
+  cursor: crosshair;
+}
+
+/* ─── GRAIN OVERLAY ─── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.07'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.4;
+}
+
+/* ─── HIERÓGLIFOS FLUTUANTES ─── */
+.hieroglyphs {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.hg {
+  position: absolute;
+  font-size: 1.2rem;
+  color: var(--sand-dark);
+  opacity: 0;
+  animation: floatUp linear infinite;
+}
+
+@keyframes floatUp {
+  0%   { opacity: 0; transform: translateY(0) rotate(0deg); }
+  10%  { opacity: 0.06; }
+  90%  { opacity: 0.04; }
+  100% { opacity: 0; transform: translateY(-100vh) rotate(30deg); }
+}
+
+/* ─── HERO ─── */
+.hero {
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 6rem 1.5rem 14rem;
+  overflow: hidden;
+}
+
+/* Pôr do sol — gradiente âmbar */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 120% 60% at 50% 110%, #7a3a00 0%, #3d1500 25%, transparent 65%),
+    radial-gradient(ellipse 80% 40% at 50% 105%, #c06010 0%, transparent 50%),
+    linear-gradient(to top, #1a0800 0%, #0d0500 40%, #060402 100%);
+  z-index: 0;
+}
+
+/* Silhueta de pirâmide — responsiva */
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: min(340px, 48vw) solid transparent;
+  border-right: min(340px, 48vw) solid transparent;
+  border-bottom: min(220px, 28vw) solid #0a0603;
+  z-index: 1;
+  filter: drop-shadow(0 -8px 40px rgba(180, 80, 0, 0.3));
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 860px;
+  width: 100%;
+}
+
+/* ─── ANKH ANIMADO ─── */
+.sun-eye {
+  width: 80px;
+  height: 100px;
+  margin: 0 auto 2.5rem;
+  position: relative;
+  animation: pulse-sun 4s ease-in-out infinite;
+}
+
+.sun-eye svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 0 18px rgba(200, 120, 10, 0.9)) drop-shadow(0 0 40px rgba(150, 60, 0, 0.5));
+}
+
+@keyframes pulse-sun {
+  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 20px rgba(200,120,10,0.8)); }
+  50%       { transform: scale(1.05); filter: drop-shadow(0 0 35px rgba(220,150,30,1)); }
+}
+
+/* ─── HERO — TEXTOS ─── */
+.hero-eyebrow {
+  font-family: 'IM Fell English SC', serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.3em;
+  color: var(--sand-dark);
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  animation: fadeUp 1s ease 0.3s both;
+}
+
+.hero-title {
+  font-family: 'Cinzel Decorative', cursive;
+  font-size: clamp(3rem, 8vw, 6.5rem);
+  font-weight: 900;
+  line-height: 1;
+  color: var(--gold-bright);
+  text-shadow:
+    0 0 60px rgba(200,140,30,0.7),
+    0 0 120px rgba(150,70,0,0.4),
+    0 4px 20px rgba(0,0,0,0.9);
+  letter-spacing: 0.05em;
+  margin-bottom: 0.4rem;
+  animation: fadeUp 1s ease 0.5s both;
+}
+
+.hero-subtitle {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(0.65rem, 2vw, 1.05rem);
+  letter-spacing: 0.15em;
+  color: var(--sand);
+  text-transform: uppercase;
+  margin-bottom: 2.5rem;
+  animation: fadeUp 1s ease 0.7s both;
+  word-break: break-word;
+}
+
+.hero-tagline {
+  font-size: clamp(0.95rem, 2.5vw, 1.25rem);
+  font-style: italic;
+  color: var(--text-muted);
+  max-width: 540px;
+  margin: 0 auto 3.5rem;
+  line-height: 1.7;
+  animation: fadeUp 1s ease 0.9s both;
+}
+
+/* ─── BOTÃO CTA (HERO) ─── */
+.cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: linear-gradient(135deg, #1a5c2a 0%, #0e3a1a 100%);
+  color: #7fff8a;
+  font-family: 'Cinzel', serif;
+  font-size: clamp(0.75rem, 2.2vw, 0.95rem);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 0.9rem 2rem;
+  border: 1px solid rgba(100, 220, 120, 0.35);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s ease;
+  animation: fadeUp 1s ease 1.1s both;
+  clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+  white-space: nowrap;
+}
+
+.cta-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(100,220,120,0.15) 0%, transparent 100%);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+.cta-btn:hover::before { opacity: 1; }
+.cta-btn:hover {
+  border-color: rgba(100,220,120,0.7);
+  box-shadow: 0 0 30px rgba(80,200,100,0.3), 0 0 60px rgba(40,120,60,0.2);
+  transform: translateY(-2px);
+  color: #afffb5;
+}
+
+.cta-btn svg { width: 22px; height: 22px; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── DIVISOR ─── */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  max-width: 600px;
+  margin: 0 auto 5rem;
+  padding: 0 2rem;
+}
+
+.divider-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--sand-dark), transparent);
+}
+
+.divider-glyph {
+  color: var(--gold);
+  font-size: 1.4rem;
+  opacity: 0.7;
+}
+
+/* ─── SEÇÕES ─── */
+section {
+  position: relative;
+  padding: 6rem 2rem;
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.section-label {
+  font-family: 'IM Fell English SC', serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.5em;
+  color: var(--sand-dark);
+  text-transform: uppercase;
+  margin-bottom: 0.8rem;
+  text-align: center;
+}
+
+.section-title {
+  font-family: 'Cinzel Decorative', cursive;
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  color: var(--gold);
+  text-align: center;
+  margin-bottom: 3.5rem;
+  text-shadow: 0 0 40px rgba(180,120,20,0.4);
+}
+
+/* ─── SOBRE MIM ─── */
+.about-grid {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 3.5rem;
+  align-items: start;
+}
+
+.about-emblem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.emblem-frame {
+  width: 160px;
+  height: 160px;
+  border: 1px solid var(--sand-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background: radial-gradient(ellipse at center, #1a0e04 0%, var(--void) 70%);
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  flex-shrink: 0;
+}
+
+.emblem-frame::before {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  border: 1px solid rgba(180,120,20,0.2);
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+}
+
+.emblem-frame svg {
+  width: 72px;
+  height: 90px;
+  opacity: 0.85;
+  filter: drop-shadow(0 0 12px rgba(200,140,20,0.5));
+}
+
+.emblem-name {
+  font-family: 'Cinzel Decorative', cursive;
+  font-size: 1.5rem;
+  color: var(--gold-bright);
+  letter-spacing: 0.08em;
+  text-align: center;
+}
+
+.emblem-roles {
+  font-family: 'IM Fell English SC', serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.35em;
+  color: var(--sand-dark);
+  text-align: center;
+  line-height: 2;
+}
+
+.about-text p {
+  font-size: 1.05rem;
+  line-height: 1.9;
+  color: var(--text-main);
+  margin-bottom: 1.5rem;
+}
+
+.about-text p:first-child::first-letter {
+  font-family: 'Cinzel Decorative', cursive;
+  font-size: 3.5rem;
+  float: left;
+  line-height: 0.75;
+  margin-right: 0.15em;
+  color: var(--gold);
+  text-shadow: 0 0 30px rgba(200,140,20,0.6);
+}
+
+.tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 2rem;
+}
+
+.tag {
+  font-family: 'IM Fell English SC', serif;
+  font-size: 0.68rem;
+  letter-spacing: 0.3em;
+  color: var(--amber);
+  border: 1px solid rgba(200,100,20,0.35);
+  padding: 0.35rem 0.9rem;
+  background: rgba(120,50,0,0.12);
+}
+
+/* ─── ÁREA DE ATUAÇÃO ─── */
+.atuacao-bg {
+  background: linear-gradient(to bottom, transparent, rgba(20,8,0,0.6), transparent);
+}
+
+.atuacao-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+}
+
+.atuacao-card {
+  padding: 2.5rem 2rem;
+  border: 1px solid rgba(180,120,20,0.18);
+  background: linear-gradient(160deg, rgba(30,15,4,0.9) 0%, rgba(10,5,2,0.9) 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.atuacao-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(to right, transparent, var(--gold), transparent);
+  opacity: 0.5;
+}
+
+.atuacao-icon {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 1.5rem;
+  color: var(--gold);
+  opacity: 0.8;
+}
+
+.atuacao-card h3 {
+  font-family: 'Cinzel', serif;
+  font-size: 1.05rem;
+  letter-spacing: 0.15em;
+  color: var(--gold-bright);
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
+
+.atuacao-card p {
+  font-size: 0.97rem;
+  line-height: 1.85;
+  color: var(--text-muted);
+}
+
+/* ─── BANNER TAROT DE THOTH ─── */
+.thoth-banner {
+  background:
+    linear-gradient(to bottom, transparent, rgba(15,8,2,0.8), transparent),
+    radial-gradient(ellipse at center, rgba(100,50,0,0.15), transparent 70%);
+  border-top: 1px solid rgba(180,120,20,0.15);
+  border-bottom: 1px solid rgba(180,120,20,0.15);
+  padding: 5rem 2rem;
+  text-align: center;
+  max-width: 100%;
+}
+
+.thoth-quote {
+  font-style: italic;
+  font-size: clamp(1.1rem, 3vw, 1.5rem);
+  color: var(--sand);
+  max-width: 700px;
+  margin: 0 auto 1.5rem;
+  line-height: 1.75;
+}
+
+.thoth-attr {
+  font-family: 'IM Fell English SC', serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.4em;
+  color: var(--sand-dark);
+}
+
+/* ─── TIRAGENS ─── */
+.tiragens-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.tiragem {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 2.5rem;
+  align-items: start;
+  padding: 2.5rem;
+  border: 1px solid rgba(180,120,20,0.12);
+  background: linear-gradient(135deg, rgba(20,10,2,0.95) 0%, rgba(8,4,1,0.95) 100%);
+  position: relative;
+  transition: border-color 0.4s, box-shadow 0.4s;
+}
+
+.tiragem:hover {
+  border-color: rgba(200,140,40,0.35);
+  box-shadow: 0 0 40px rgba(150,80,0,0.12);
+}
+
+.tiragem::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+.tiragem:hover::before { opacity: 0.6; }
+
+.tiragem-number {
+  font-family: 'Cinzel Decorative', cursive;
+  font-size: 3rem;
+  color: var(--sand-dark);
+  line-height: 1;
+  min-width: 50px;
+  text-align: center;
+  opacity: 0.6;
+}
+
+.tiragem h3 {
+  font-family: 'Cinzel', serif;
+  font-size: 1.15rem;
+  letter-spacing: 0.15em;
+  color: var(--gold-bright);
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.tiragem-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+
+.card-pill {
+  font-family: 'IM Fell English SC', serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  padding: 0.25rem 0.75rem;
+  border-radius: 1px;
+}
+
+.pill-pos  { background: rgba(20,60,25,0.5);  color: #7fcf88; border: 1px solid rgba(80,180,90,0.3); }
+.pill-neg  { background: rgba(60,15,15,0.5);  color: #cf8080; border: 1px solid rgba(180,60,60,0.3); }
+.pill-adv  { background: rgba(40,30,8,0.5);   color: var(--gold); border: 1px solid rgba(180,130,20,0.3); }
+.pill-seph { background: rgba(25,18,5,0.5);   color: var(--sand); border: 1px solid rgba(150,100,20,0.25); }
+
+.tiragem p {
+  font-size: 0.97rem;
+  line-height: 1.85;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+
+/* ─── LISTA SEPHIROTH ─── */
+.seph-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 1rem;
+}
+
+/* ─── SEÇÃO DE CONTATO ─── */
+.contact-section {
+  text-align: center;
+  padding: 7rem 2rem 8rem;
+  position: relative;
+  max-width: 100%;
+}
+
+.contact-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 50%, rgba(30,12,0,0.7), transparent 70%),
+    radial-gradient(ellipse 40% 40% at 50% 85%, rgba(100,40,0,0.3), transparent 70%);
+  pointer-events: none;
+}
+
+.contact-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.contact-section .section-title { margin-bottom: 1.5rem; }
+
+.contact-section p {
+  font-size: 1.05rem;
+  line-height: 1.85;
+  color: var(--text-muted);
+  margin-bottom: 3rem;
+  font-style: italic;
+}
+
+/* ─── BOTÃO WHATSAPP ─── */
+.whatsapp-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  background: linear-gradient(135deg, #1a5c2a, #0d3318);
+  border: 1px solid rgba(80,200,100,0.4);
+  color: #a0ffb0;
+  font-family: 'Cinzel', serif;
+  font-size: 1rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 1.2rem 3rem;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s ease;
+}
+
+.whatsapp-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(100,230,120,0.1), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.whatsapp-btn:hover::after { opacity: 1; }
+.whatsapp-btn:hover {
+  box-shadow: 0 0 50px rgba(60,200,80,0.35), 0 0 100px rgba(30,120,50,0.2);
+  border-color: rgba(100,230,120,0.7);
+  color: #ccffcf;
+  transform: translateY(-3px);
+}
+
+.whatsapp-btn svg { width: 26px; height: 26px; }
+
+/* ─── FOOTER ─── */
+footer {
+  text-align: center;
+  padding: 3rem 2rem;
+  border-top: 1px solid rgba(100,60,0,0.2);
+}
+
+footer p {
+  font-family: 'IM Fell English SC', serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.45em;
+  color: var(--text-muted);
+  opacity: 0.5;
+}
+
+/* ─── SCROLL REVEAL ─── */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── TIRAGEM — HEADER COM PREÇO E BOTÃO ─── */
+.tiragem-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.tiragem-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.tiragem-preco {
+  font-family: 'Cinzel Decorative', cursive;
+  font-size: 1.3rem;
+  color: var(--gold-bright);
+  white-space: nowrap;
+  text-shadow: 0 0 20px rgba(200,140,20,0.4);
+  flex-shrink: 0;
+}
+
+.tiragem-preco-dec {
+  font-size: 0.85rem;
+  color: var(--gold);
+}
+
+.tiragem-btn {
+  display: inline-block;
+  margin-top: 1.2rem;
+  font-family: 'IM Fell English SC', serif;
+  font-size: 0.68rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--text-muted);
+  border: 1px solid rgba(180,120,20,0.25);
+  padding: 0.55rem 1.25rem;
+  background: rgba(80,40,0,0.1);
+  transition: all 0.35s ease;
+  align-self: flex-start;
+}
+
+.tiragem-btn:hover {
+  color: var(--gold-bright);
+  border-color: rgba(200,140,40,0.55);
+  background: rgba(100,55,0,0.2);
+  box-shadow: 0 0 18px rgba(150,80,0,0.12);
+}
+
+/* Variante amor */
+.tiragem--amor {
+  border-color: rgba(180,120,20,0.28);
+}
+
+.tiragem--amor .tiragem-number {
+  color: var(--gold);
+  opacity: 0.8;
+}
+
+/* ─── PREÇOS (seção legada — removida, estilos mantidos para compatibilidade) ─── */
+.precos-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: stretch;
+}
+
+.preco-card {
+  padding: 2.5rem 2rem;
+  border: 1px solid rgba(180,120,20,0.18);
+  background: linear-gradient(160deg, rgba(22,12,3,0.97) 0%, rgba(8,4,1,0.97) 100%);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1.5rem;
+  transition: border-color 0.4s, box-shadow 0.4s;
+}
+
+.preco-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(to right, transparent, var(--gold), transparent);
+  opacity: 0.4;
+  transition: opacity 0.4s;
+}
+
+.preco-card:hover {
+  border-color: rgba(200,140,40,0.35);
+  box-shadow: 0 0 50px rgba(150,80,0,0.12);
+}
+
+.preco-card:hover::before { opacity: 0.8; }
+
+/* Destaque — card amoroso */
+.preco-card--destaque {
+  border-color: rgba(180,120,20,0.35);
+  background: linear-gradient(160deg, rgba(30,16,4,0.97) 0%, rgba(12,7,2,0.97) 100%);
+}
+
+.preco-card--destaque::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at top, rgba(180,100,0,0.06) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.preco-badge {
+  position: absolute;
+  top: -1px;
+  right: 1.5rem;
+  font-family: 'IM Fell English SC', serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  color: var(--obsidian);
+  background: linear-gradient(135deg, var(--gold), var(--amber));
+  padding: 0.3rem 0.9rem;
+  clip-path: polygon(0 0, 100% 0, 100% 80%, 50% 100%, 0 80%);
+  padding-bottom: 0.55rem;
+}
+
+.preco-glyph {
+  width: 60px;
+  height: 80px;
+  filter: drop-shadow(0 0 10px rgba(200,140,20,0.4));
+  flex-shrink: 0;
+}
+
+.preco-card--destaque .preco-glyph {
+  width: 70px;
+  height: 70px;
+}
+
+.preco-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  flex: 1;
+}
+
+.preco-titulo {
+  font-family: 'Cinzel', serif;
+  font-size: 1.1rem;
+  letter-spacing: 0.15em;
+  color: var(--gold-bright);
+  text-transform: uppercase;
+}
+
+.preco-desc {
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: var(--text-muted);
+  max-width: 340px;
+}
+
+.preco-valor {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.2rem;
+  margin: 0.5rem 0;
+}
+
+.preco-moeda {
+  font-family: 'Cinzel', serif;
+  font-size: 1rem;
+  color: var(--sand-dark);
+  margin-top: 0.5rem;
+  letter-spacing: 0.05em;
+}
+
+.preco-numero {
+  font-family: 'Cinzel Decorative', cursive;
+  font-size: 3.2rem;
+  color: var(--gold-bright);
+  line-height: 1;
+  text-shadow: 0 0 40px rgba(200,140,20,0.5);
+}
+
+.preco-dec {
+  font-size: 1.6rem;
+  vertical-align: top;
+  margin-top: 0.4rem;
+  display: inline-block;
+  color: var(--gold);
+}
+
+.preco-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'IM Fell English SC', serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--text-muted);
+  border: 1px solid rgba(180,120,20,0.25);
+  padding: 0.65rem 1.5rem;
+  margin-top: auto;
+  transition: all 0.35s ease;
+  background: rgba(80,40,0,0.1);
+}
+
+.preco-btn:hover {
+  color: var(--gold-bright);
+  border-color: rgba(200,140,40,0.6);
+  background: rgba(100,55,0,0.2);
+  box-shadow: 0 0 20px rgba(150,80,0,0.15);
+}
+
+.preco-btn--destaque {
+  color: #a0ffb0;
+  border-color: rgba(80,200,100,0.3);
+  background: rgba(20,60,25,0.3);
+}
+
+.preco-btn--destaque:hover {
+  color: #ccffcf;
+  border-color: rgba(100,230,120,0.6);
+  background: rgba(20,70,30,0.45);
+  box-shadow: 0 0 25px rgba(60,200,80,0.2);
+}
+
+/* ═══════════════════════════════════════════════
+   RESPONSIVIDADE
+   ═══════════════════════════════════════════════ */
+
+@media (max-width: 720px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .atuacao-cols { grid-template-columns: 1fr; }
+
+  .precos-grid { grid-template-columns: 1fr; }
+
+  .tiragem {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .tiragem-number { font-size: 2rem; }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    padding: 5rem 1rem 12rem;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+  }
+
+  .hero-subtitle {
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+  }
+
+  .hero-tagline {
+    font-size: 0.9rem;
+    padding: 0 0.5rem;
+  }
+
+  .cta-btn {
+    font-size: 0.7rem;
+    padding: 0.8rem 1.4rem;
+    letter-spacing: 0.1em;
+    clip-path: none;
+  }
+
+  section { padding: 4rem 1.25rem; }
+
+  .about-emblem {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .emblem-name { font-size: 1.2rem; }
+
+  .tiragem {
+    padding: 1.5rem 1rem;
+    gap: 0.75rem;
+  }
+
+  .tiragem-number {
+    font-size: 1.8rem;
+    min-width: 36px;
+  }
+
+  .tiragem h3 { font-size: 0.95rem; }
+
+  .thoth-banner { padding: 3.5rem 1.25rem; }
+
+  .contact-section { padding: 5rem 1.25rem 6rem; }
+
+  .whatsapp-btn {
+    font-size: 0.8rem;
+    padding: 1rem 1.75rem;
+    letter-spacing: 0.1em;
+  }
+
+  .divider { margin-bottom: 3rem; }
+
+  .section-title {
+    font-size: clamp(1.3rem, 6vw, 2rem);
+    margin-bottom: 2.5rem;
+  }
+
+  .atuacao-card { padding: 1.75rem 1.25rem; }
+}
+
+@media (max-width: 360px) {
+  .hero-subtitle { display: none; }
+}
